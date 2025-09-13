@@ -143,6 +143,13 @@ npm run dev
    - `JWT_EXPIRES_IN` → e.g. `1d` (1 day)
    - `PORT` → default 5000
 
+⚠️ Work in Progress
+
+This project is under development. Current progress includes:
+- Project structure
+- Models, routes, controllers
+- Initial middleware setup
+
 
 Server runs on 👉 http://localhost:5000/
 

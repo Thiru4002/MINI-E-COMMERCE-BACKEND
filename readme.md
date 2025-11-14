@@ -1,164 +1,200 @@
-🛒 Mini E-commerce Backend API
+# 🛒 Mini E-commerce Backend API
 
-A role-based E-commerce backend built with Node.js, Express, and MongoDB.
-This project includes authentication, authorization, product management, cart, orders, and admin features.
+A role-based **E-commerce backend system** built using **Node.js, Express, and MongoDB**.  
+Includes full authentication, authorization, product management, cart, orders, admin controls, and essential backend security.
 
-🚀 Features
+---
 
-User Authentication
+## 🚀 Features
 
-Register, Login, Logout with JWT
+### 🔐 **User Authentication**
+- Register, Login, Logout using JWT  
+- Password hashing with bcrypt  
+- Protected routes via middleware  
+- Forgot/Reset Password (optional expansion)
 
-Password hashing with bcrypt
+---
 
-Role-Based Access
+### 🛂 **Role-Based Access**
+- Roles: `customer`, `manager`, `admin`  
+- `restrict` middleware for secure access  
+- Admin/Manager: manage products & orders  
+- Admin: manage users
 
-Roles: customer, manager, admin
+---
 
-restrict middleware for secure route access
+### 🛍️ **Product Management**
+- Create, update, delete products (admin/manager)  
+- Public product listing  
+- Search, filtering, pagination  
 
-Product Management
+---
 
-Create, update, delete products (admin/manager only)
+### 🛒 **Cart System**
+- Add items to cart  
+- Update item quantity  
+- Remove items  
+- Clear cart  
+- View cart details  
 
-Public product listing with search & filtering
+---
 
-Cart System
+### 📦 **Order System**
+- Place order from cart  
+- View order history (customer)  
+- Admin/Manager:  
+  - View all orders  
+  - Update order status  
 
-Add to cart, update quantity, remove items
+---
 
-Clear cart, view cart details
+### 🛡️ **Security**
+- **Helmet** – secure HTTP headers  
+- **Rate Limiting** – brute-force protection  
+- **Mongo-sanitize** – prevents NoSQL injection  
+- **CORS** enabled  
+- **XSS Protection** (optional)  
 
-Orders
+---
 
-Place orders from cart
+## 📦 Tech Stack
 
-View order history (customer)
+| Category | Technology |
+|---------|------------|
+| Backend | Node.js, Express.js |
+| Database | MongoDB, Mongoose |
+| Authentication | JWT, bcrypt |
+| Security | Helmet, Rate Limiting, CORS, Mongo-sanitize |
+| Tools | Postman, Git |
 
-Admin/Manager: view all orders, update order status
+---
 
-Admin Management
+## 📁 Project Structure
 
-Promote/demote users (manager or admin)
-
-Security
-
-Helmet for HTTP headers
-
-Rate limiting for brute force protection
-
-Data sanitization with mongo-sanitize
-
-CORS enabled
-
-📦 Tech Stack
-
-Backend: Node.js, Express.js
-
-Database: MongoDB + Mongoose
-
-Authentication: JWT, bcrypt
-
-Security: Helmet, Rate Limiting, Mongo-sanitize, CORS
-
-Tools: Postman, Git
-
-📂 Project Structure
+```
 mini-ecommerce-backend/
-│-- config/         # DB connection, environment setup
-│-- controllers/    # Business logic (users, products, orders)
-│-- middlewares/    # Auth, error handling, security
-│-- models/         # Mongoose schemas (User, Product, Order, Cart)
-│-- routes/         # API routes (users, products, cart, orders, admin)
-│-- utils/          # Helper functions
-│-- server.js       # App entry point
+│
+├── config/                # DB connection & environment setup
+├── controllers/           # Business logic (users, products, orders)
+├── middlewares/           # Auth, role check, error handling
+├── models/                # Mongoose schemas (User, Product, Order, Cart)
+├── routes/                # All API routes
+├── utils/                 # Token helpers, validators
+│
+├── server.js              # App entry point
+└── README.md
+```
 
-🔑 API Endpoints
-Auth
+---
 
-POST /api/users/register → Register new user
+## 🔑 API Endpoints
 
-POST /api/users/login → Login
+### **Auth**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/users/register` | Register new user |
+| POST | `/api/users/login` | Login user |
+| POST | `/api/users/logout` | Logout (protected) |
 
-POST /api/users/logout → Logout (protected)
+---
 
-Products
+### **Products**
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| GET | `/api/products` | Public | Get all products |
+| POST | `/api/products` | Admin/Manager | Create product |
+| PUT | `/api/products/:id` | Admin/Manager | Update product |
+| DELETE | `/api/products/:id` | Admin | Delete product |
 
-GET /api/products → Get all products
+---
 
-POST /api/products → Create product (admin/manager only)
+### **Cart**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/cart` | Add to cart |
+| GET | `/api/cart` | View cart |
+| PUT | `/api/cart/:id` | Update quantity |
+| DELETE | `/api/cart/:id` | Remove item |
+| DELETE | `/api/cart` | Clear cart |
 
-PUT /api/products/:id → Update product (admin/manager only)
+---
 
-DELETE /api/products/:id → Delete product (admin only)
+### **Orders**
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/orders` | User | Place order |
+| GET | `/api/orders` | User | Order history |
+| GET | `/api/admin/order` | Admin/Manager | View all orders |
+| PUT | `/api/admin/order/:orderId` | Admin | Update order status |
 
-Cart
+---
 
-POST /api/cart → Add to cart
+## 🧪 Testing
+- All routes tested using **Postman**
+- API documentation screenshots available in `/docs` (optional)
 
-GET /api/cart → View cart
+---
 
-PUT /api/cart/:id → Update quantity
+## 📌 Installation & Setup
 
-DELETE /api/cart/:id → Remove item
-
-DELETE /api/cart → Clear cart
-
-Orders
-
-POST /api/orders → Place order
-
-GET /api/orders → User order history
-
-GET /api/admin/order → Admin get all orders (admin/manager only)
-
-PUT /api/admin/order/:orderId → Update order status (admin only)
-
-🧪 Testing
-
-All routes tested using Postman
-
-API documentation screenshots available in /docs
-
-📌 Installation & Setup
-# Clone the repo
+### **1. Clone the repo**
+```
 git clone https://github.com/YOUR_USERNAME/mini-ecommerce-backend.git
+```
 
-# Install dependencies
+### **2. Install dependencies**
+```
 npm install
+```
 
-# Add environment variables in .env
+### **3. Create `.env` file**
+```
 MONGO_URI=your_mongo_connection
 JWT_SECRET=your_secret
+JWT_EXPIRES_IN=1d
 PORT=5000
+```
 
-# Run the server
+### **4. Start the server**
+```
 npm run dev
+```
 
-## ⚙️ Setup
-1. Copy `.env.example` to `.env`
-2. Fill in your own values:
-   - `MONGO_URI` → your MongoDB connection string
-   - `JWT_SECRET` → any random string (used for signing tokens)
-   - `JWT_EXPIRES_IN` → e.g. `1d` (1 day)
-   - `PORT` → default 5000
+---
 
-⚠️ Work in Progress
+## ⚙️ Environment Setup
 
-This project is under development. Current progress includes:
-- Project structure
-- Models, routes, controllers
-- Initial middleware setup
+If you have `.env.example`, copy it:
+```
+cp .env.example .env
+```
 
+Then update with your values:
+- `MONGO_URI` → MongoDB Atlas or local connection  
+- `JWT_SECRET` → long random string  
+- `PORT` → 5000 or any  
 
-Server runs on 👉 http://localhost:5000/
+---
 
-📸 Proof & Documentation
+## ⚠️ Work in Progress
+This project is currently under development.
 
-Postman screenshots of all endpoints tested
+Completed:
+- Project structure  
+- Models, controllers, routes  
+- Authentication & security  
+- Server running at → `http://localhost:5000/`
 
-Error handling & edge cases verified
+---
 
-📜 License
+## 📸 Proof of Development
+- Postman test screenshots  
+- Verified error handling  
+- Clean folder structure  
+- Working CRUD features  
 
-This project is licensed under the MIT License.
+---
+
+## 📜 License
+This project is licensed under the **MIT License**.
+
